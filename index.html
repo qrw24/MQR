@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Walelgn Dinberu | Social Links</title>
+    <!-- Font Awesome 6 (free icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #0a192f 0%, #0f2a3f 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1.5rem;
+        }
+
+        .hub-card {
+            max-width: 550px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(0px);
+            border-radius: 48px;
+            box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255,255,255,0.2);
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+
+        .profile-section {
+            background: #ffffff;
+            padding: 2rem 2rem 1rem 2rem;
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #0a66c2, #1da1f2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem auto;
+            box-shadow: 0 12px 24px -8px rgba(0,0,0,0.2);
+        }
+
+        .avatar i {
+            font-size: 3.5rem;
+            color: white;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0a192f;
+            margin-bottom: 0.25rem;
+        }
+
+        .title {
+            color: #4b6e8a;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #eef2f8;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        .links-container {
+            padding: 0 2rem 2rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .social-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            background: white;
+            padding: 1rem 1rem;
+            border-radius: 80px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: all 0.25s ease;
+            border: 1px solid #e2edf7;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            color: #1f2f3e;
+        }
+
+        .social-button i {
+            font-size: 1.8rem;
+            transition: transform 0.2s;
+        }
+
+        .social-button span {
+            letter-spacing: -0.2px;
+        }
+
+        /* LinkedIn button */
+        .linkedin-btn:hover {
+            background: #0077B5;
+            border-color: #0077B5;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px -10px rgba(0,119,181,0.4);
+        }
+
+        .linkedin-btn:hover i {
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* TikTok button */
+        .tiktok-btn:hover {
+            background: #010101;
+            border-color: #010101;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px -10px rgba(0,0,0,0.5);
+        }
+
+        .tiktok-btn:hover i {
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .footer-note {
+            background: #f8fafd;
+            padding: 1rem;
+            font-size: 0.7rem;
+            color: #5a7a9a;
+            border-top: 1px solid #eef2f8;
+            text-align: center;
+        }
+
+        @media (max-width: 480px) {
+            .hub-card {
+                border-radius: 32px;
+            }
+            .social-button {
+                padding: 0.85rem 1rem;
+                font-size: 1rem;
+            }
+            .social-button i {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hub-card">
+        <div class="profile-section">
+            <div class="avatar">
+                <i class="fas fa-user-astronaut"></i>
+            </div>
+            <h1>Walelgn Dinberu</h1>
+            <div class="title">
+                <i class="fas fa-share-alt"></i> Connect with me
+            </div>
+        </div>
+
+        <div class="links-container">
+            <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/in/walelgn-dinberu-4b9b8296/" 
+               class="social-button linkedin-btn" 
+               target="_blank" 
+               rel="noopener noreferrer">
+                <i class="fab fa-linkedin-in"></i>
+                <span>LinkedIn</span>
+            </a>
+            
+            <!-- TikTok -->
+            <a href="https://www.tiktok.com/@walelgn24" 
+               class="social-button tiktok-btn" 
+               target="_blank" 
+               rel="noopener noreferrer">
+                <i class="fab fa-tiktok"></i>
+                <span>TikTok</span>
+            </a>
+        </div>
+
+        <div class="footer-note">
+            <i class="fas fa-qrcode"></i> Scan again to share — tap any button to visit my profile
+        </div>
+    </div>
+</body>
+</html>
