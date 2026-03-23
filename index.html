@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Mekdim Mulugeta | Social Links</title>
-    <!-- Font Awesome 6 (free icons) -->
+    <title>Mekdim Mulugeta | Art Gallery</title>
+    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -24,15 +24,13 @@
         }
 
         .hub-card {
-            max-width: 550px;
+            max-width: 600px;
             width: 100%;
             background: rgba(255, 255, 255, 0.97);
-            backdrop-filter: blur(0px);
             border-radius: 48px;
-            box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255,255,255,0.2);
+            box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.4);
             overflow: hidden;
             text-align: center;
-            transition: transform 0.2s ease;
         }
 
         .profile-section {
@@ -70,19 +68,17 @@
             font-size: 0.85rem;
             color: #4b6e8a;
             background: #f0f4fa;
-            display: inline-block;
-            padding: 0.4rem 1rem;
+            display: inline-flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            padding: 0.5rem 1.2rem;
             border-radius: 40px;
         }
 
         .contact-info i {
             margin-right: 6px;
-            width: 20px;
             color: #2c6288;
-        }
-
-        .contact-info span {
-            margin: 0 8px;
         }
 
         .divider {
@@ -111,8 +107,8 @@
             font-size: 1.2rem;
             transition: all 0.25s ease;
             border: 1px solid #e2edf7;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
             color: #1f2f3e;
+            cursor: pointer;
         }
 
         .social-button i {
@@ -120,50 +116,121 @@
             transition: transform 0.2s;
         }
 
-        .social-button span {
-            letter-spacing: -0.2px;
-        }
-
-        /* Facebook button */
-        .facebook-btn:hover {
-            background: #1877F2;
-            border-color: #1877F2;
-            color: white;
+        .social-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 25px -10px rgba(24,119,242,0.4);
+            box-shadow: 0 15px 25px -10px rgba(0,0,0,0.2);
         }
 
-        .facebook-btn:hover i {
-            color: white;
+        .social-button:hover i {
             transform: scale(1.05);
         }
 
-        /* TikTok button */
-        .tiktok-btn:hover {
-            background: #010101;
-            border-color: #010101;
+        .works-btn {
+            background: linear-gradient(135deg, #2c5f8a, #1e3a5f);
             color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 15px 25px -10px rgba(0,0,0,0.5);
+            border: none;
         }
 
-        .tiktok-btn:hover i {
+        .works-btn i {
             color: white;
+        }
+
+        .works-btn:hover {
+            background: linear-gradient(135deg, #3b7aaa, #2c4c6e);
+        }
+
+        /* Gallery Modal Styles */
+        .gallery-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .gallery-image {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: white;
+            font-size: 1.5rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.4);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .prev-btn {
+            left: 20px;
+        }
+
+        .next-btn {
+            right: 20px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            color: white;
+            font-size: 1.3rem;
+            transition: all 0.2s;
+        }
+
+        .close-modal:hover {
+            background: rgba(255,255,255,0.4);
             transform: scale(1.05);
         }
 
-        /* Instagram button */
-        .instagram-btn:hover {
-            background: linear-gradient(135deg, #fdf497, #fd5949, #d6249f);
-            border-color: transparent;
+        .image-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.6);
             color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 15px 25px -10px rgba(214, 36, 159, 0.4);
-        }
-
-        .instagram-btn:hover i {
-            color: white;
-            transform: scale(1.05);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
         }
 
         .footer-note {
@@ -176,23 +243,12 @@
         }
 
         @media (max-width: 480px) {
-            .hub-card {
-                border-radius: 32px;
-            }
-            .social-button {
-                padding: 0.85rem 1rem;
-                font-size: 1rem;
-            }
-            .social-button i {
-                font-size: 1.6rem;
-            }
-            .contact-info {
-                font-size: 0.75rem;
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 6px;
-            }
+            .hub-card { border-radius: 32px; }
+            .social-button { padding: 0.85rem 1rem; font-size: 1rem; }
+            .social-button i { font-size: 1.6rem; }
+            .nav-btn { width: 40px; height: 40px; font-size: 1.2rem; }
+            .prev-btn { left: 10px; }
+            .next-btn { right: 10px; }
         }
     </style>
 </head>
@@ -205,17 +261,23 @@
             <h1>Mekdim Mulugeta</h1>
             <div class="contact-info">
                 <i class="fas fa-phone-alt"></i> +251947325665
-                <span>|</span>
-                <i class="fas fa-envelope"></i> mulugetamekdim438@gmail.com
+                <i class="fas fa-envelope"></i> mulugetamekedim438@gmail.com
             </div>
             <div class="divider"></div>
-            <div class="title" style="margin-top: 12px;">
-                <i class="fas fa-share-alt"></i> Connect with me
+            <div class="title" style="margin-top: 12px; color: #4b6e8a; font-size: 0.9rem;">
+                <i class="fas fa-palette"></i> Artist | Creator
             </div>
         </div>
 
         <div class="links-container">
-            <!-- Facebook -->
+            <!-- Check Out My Works Button -->
+            <button class="social-button works-btn" id="viewWorksBtn">
+                <i class="fas fa-music"></i>
+                <span>Check Out My Works</span>
+                <i class="fas fa-arrow-right"></i>
+            </button>
+
+            <!-- Social Links -->
             <a href="https://www.facebook.com/mekdim.mulugeta.2025" 
                class="social-button facebook-btn" 
                target="_blank" 
@@ -224,7 +286,6 @@
                 <span>Facebook</span>
             </a>
             
-            <!-- TikTok (clean username format) -->
             <a href="https://www.tiktok.com/@mekdimmulugeta" 
                class="social-button tiktok-btn" 
                target="_blank" 
@@ -233,7 +294,6 @@
                 <span>TikTok</span>
             </a>
 
-            <!-- Instagram -->
             <a href="https://www.instagram.com/mekdimmulugeta" 
                class="social-button instagram-btn" 
                target="_blank" 
@@ -247,5 +307,109 @@
             <i class="fas fa-qrcode"></i> Scan to connect — tap any button to visit my profile
         </div>
     </div>
+
+    <!-- Gallery Modal -->
+    <div id="galleryModal" class="gallery-modal">
+        <button class="close-modal" id="closeModalBtn"><i class="fas fa-times"></i></button>
+        <div class="modal-content">
+            <button class="nav-btn prev-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+            <img id="galleryImage" class="gallery-image" src="" alt="Artwork">
+            <button class="nav-btn next-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="image-counter" id="imageCounter">1 / 1</div>
+    </div>
+
+    <script>
+        // ========== SAMPLE ARTWORK IMAGES ==========
+        // REPLACE THESE URLS WITH YOUR ACTUAL ARTWORK IMAGES
+        // You can use:
+        // - Online image URLs (like from Imgur, Google Drive shared links)
+        // - Or local paths like "images/art1.jpg" if you upload them with your page
+        const artworks = [
+            "https://placehold.co/800x600/2c5f8a/white?text=Artwork+1+-+Replace+with+your+image",
+            "https://placehold.co/800x600/1e3a5f/white?text=Artwork+2+-+Replace+with+your+image",
+            "https://placehold.co/800x600/4b6e8a/white?text=Artwork+3+-+Replace+with+your+image",
+            "https://placehold.co/800x600/833ab4/white?text=Artwork+4+-+Replace+with+your+image"
+        ];
+        
+        // You can also add descriptions if needed
+        const artworkTitles = [
+            "Abstract Flow",
+            "Urban Dreams", 
+            "Nature's Whisper",
+            "Digital Soul"
+        ];
+
+        let currentIndex = 0;
+        
+        // DOM Elements
+        const modal = document.getElementById('galleryModal');
+        const viewBtn = document.getElementById('viewWorksBtn');
+        const galleryImage = document.getElementById('galleryImage');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const imageCounter = document.getElementById('imageCounter');
+
+        // Function to update the displayed image
+        function updateImage() {
+            galleryImage.src = artworks[currentIndex];
+            galleryImage.alt = artworkTitles[currentIndex] || `Artwork ${currentIndex + 1}`;
+            imageCounter.textContent = `${currentIndex + 1} / ${artworks.length}`;
+        }
+
+        // Next image
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % artworks.length;
+            updateImage();
+        }
+
+        // Previous image
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + artworks.length) % artworks.length;
+            updateImage();
+        }
+
+        // Open modal
+        function openModal() {
+            modal.style.display = 'flex';
+            currentIndex = 0;
+            updateImage();
+            // Prevent body scrolling when modal is open
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close modal
+        function closeModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        // Event Listeners
+        viewBtn.addEventListener('click', openModal);
+        closeModalBtn.addEventListener('click', closeModal);
+        nextBtn.addEventListener('click', nextImage);
+        prevBtn.addEventListener('click', prevImage);
+
+        // Close modal when clicking outside the image area
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (modal.style.display === 'flex') {
+                if (e.key === 'ArrowRight') {
+                    nextImage();
+                } else if (e.key === 'ArrowLeft') {
+                    prevImage();
+                } else if (e.key === 'Escape') {
+                    closeModal();
+                }
+            }
+        });
+    </script>
 </body>
 </html>
