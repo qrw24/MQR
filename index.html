@@ -107,6 +107,7 @@
             font-size: 1.2rem;
             transition: all 0.25s ease;
             border: 1px solid #e2edf7;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
             color: #1f2f3e;
             cursor: pointer;
         }
@@ -125,18 +126,58 @@
             transform: scale(1.05);
         }
 
+        /* Works button - styled exactly like social buttons */
         .works-btn {
-            background: linear-gradient(135deg, #2c5f8a, #1e3a5f);
-            color: white;
-            border: none;
+            background: white;
+            border: 1px solid #e2edf7;
+            color: #1f2f3e;
         }
 
         .works-btn i {
-            color: white;
+            color: #2c5f8a;
         }
 
         .works-btn:hover {
-            background: linear-gradient(135deg, #3b7aaa, #2c4c6e);
+            background: linear-gradient(135deg, #2c5f8a, #1e3a5f);
+            border-color: transparent;
+            color: white;
+        }
+
+        .works-btn:hover i {
+            color: white;
+        }
+
+        /* Facebook button */
+        .facebook-btn:hover {
+            background: #1877F2;
+            border-color: #1877F2;
+            color: white;
+        }
+
+        .facebook-btn:hover i {
+            color: white;
+        }
+
+        /* TikTok button */
+        .tiktok-btn:hover {
+            background: #010101;
+            border-color: #010101;
+            color: white;
+        }
+
+        .tiktok-btn:hover i {
+            color: white;
+        }
+
+        /* Instagram button */
+        .instagram-btn:hover {
+            background: linear-gradient(135deg, #fdf497, #fd5949, #d6249f);
+            border-color: transparent;
+            color: white;
+        }
+
+        .instagram-btn:hover i {
+            color: white;
         }
 
         /* Gallery Modal Styles */
@@ -270,11 +311,10 @@
         </div>
 
         <div class="links-container">
-            <!-- Check Out My Works Button -->
+            <!-- Check Out My Works Button - styled like social buttons with paint palette icon -->
             <button class="social-button works-btn" id="viewWorksBtn">
-                <i class="fas fa-music"></i>
+                <i class="fas fa-palette"></i>
                 <span>Check Out My Works</span>
-                <i class="fas fa-arrow-right"></i>
             </button>
 
             <!-- Social Links -->
