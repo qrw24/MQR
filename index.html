@@ -322,6 +322,9 @@
             .social-button { padding: 0.8rem 1.2rem; font-size: 1rem; }
             .social-button i { font-size: 1.3rem; width: 28px; }
             .contact-info { font-size: 0.75rem; gap: 0.75rem; }
+            .nav-btn { width: 40px; height: 40px; font-size: 1.2rem; }
+            .prev-btn { left: 10px; }
+            .next-btn { right: 10px; }
         }
     </style>
 </head>
@@ -390,19 +393,30 @@
             <img id="galleryImage" class="gallery-image" src="" alt="Artwork">
             <button class="nav-btn next-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
         </div>
-        <div class="image-counter" id="imageCounter">1 / 1</div>
+        <div class="image-counter" id="imageCounter">1 / 14</div>
     </div>
 
     <script>
-        // Replace these with your actual artwork images
-        const artworks = [
-            "https://placehold.co/800x600/2c5f8a/white?text=Artwork+1",
-            "https://placehold.co/800x600/1e3a5f/white?text=Artwork+2",
-            "https://placehold.co/800x600/4b6e8a/white?text=Artwork+3",
-            "https://placehold.co/800x600/833ab4/white?text=Artwork+4"
+        // ========== ARTWORK IMAGES FROM LOCAL FOLDER ==========
+        // All images are in folder named "M" with file names 1.jpg to 14.jpg
+        // Make sure your folder structure is: /M/1.jpg, /M/2.jpg, ... /M/14.jpg
+        const artworks = [];
+        
+        // Generate image paths from 1 to 14
+        for (let i = 1; i <= 14; i++) {
+            artworks.push(`M/${i}.jpg`);
+        }
+        
+        // Optional: Add titles for each artwork (you can customize these)
+        const artworkTitles = [
+            "Artwork 1", "Artwork 2", "Artwork 3", "Artwork 4",
+            "Artwork 5", "Artwork 6", "Artwork 7", "Artwork 8",
+            "Artwork 9", "Artwork 10", "Artwork 11", "Artwork 12",
+            "Artwork 13", "Artwork 14"
         ];
 
         let currentIndex = 0;
+        const totalArtworks = artworks.length;
         
         const modal = document.getElementById('galleryModal');
         const viewBtn = document.getElementById('viewWorksBtn');
@@ -414,16 +428,17 @@
 
         function updateImage() {
             galleryImage.src = artworks[currentIndex];
-            imageCounter.textContent = `${currentIndex + 1} / ${artworks.length}`;
+            galleryImage.alt = artworkTitles[currentIndex] || `Artwork ${currentIndex + 1}`;
+            imageCounter.textContent = `${currentIndex + 1} / ${totalArtworks}`;
         }
 
         function nextImage() {
-            currentIndex = (currentIndex + 1) % artworks.length;
+            currentIndex = (currentIndex + 1) % totalArtworks;
             updateImage();
         }
 
         function prevImage() {
-            currentIndex = (currentIndex - 1 + artworks.length) % artworks.length;
+            currentIndex = (currentIndex - 1 + totalArtworks) % totalArtworks;
             updateImage();
         }
 
@@ -455,6 +470,10 @@
                 else if (e.key === 'Escape') closeModal();
             }
         });
+        
+        // Optional: Log to console to confirm image paths
+        console.log(`Loaded ${totalArtworks} artwork images from M/ folder`);
+        console.log('First image path:', artworks[0]);
     </script>
 </body>
 </html>
