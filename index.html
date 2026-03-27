@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Mekdim Mulugeta | Art Gallery</title>
-    <!-- Font Awesome 6 (required for icons) -->
+    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -32,7 +32,6 @@
             overflow: hidden;
         }
 
-        /* Profile Section */
         .profile-section {
             background: #ffffff;
             padding: 2.5rem 2rem 1.5rem 2rem;
@@ -103,7 +102,6 @@
             color: #2c5f8a;
         }
 
-        /* Buttons Container - PERFECT CENTERING */
         .links-container {
             padding: 0 2rem 2rem 2rem;
             display: flex;
@@ -112,7 +110,6 @@
             width: 100%;
         }
 
-        /* Base button style - ALL BUTTONS IDENTICAL */
         .social-button {
             display: flex;
             align-items: center;
@@ -132,7 +129,6 @@
             gap: 14px;
         }
 
-        /* Icon styling - consistent width for perfect alignment */
         .social-button i {
             font-size: 1.5rem;
             width: 32px;
@@ -140,14 +136,12 @@
             transition: transform 0.2s;
         }
 
-        /* Text styling */
         .social-button span {
             flex: 1;
             text-align: left;
             font-weight: 600;
         }
 
-        /* Hover effects */
         .social-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 12px 20px -10px rgba(0,0,0,0.15);
@@ -157,7 +151,6 @@
             transform: scale(1.05);
         }
 
-        /* Works Button */
         .works-btn {
             background: #f8fafd;
             border: 1px solid #e2edf7;
@@ -177,11 +170,6 @@
             color: white;
         }
 
-        /* Facebook Button */
-        .facebook-btn {
-            background: white;
-        }
-
         .facebook-btn i {
             color: #1877F2;
         }
@@ -192,11 +180,6 @@
             color: white;
         }
 
-        .facebook-btn:hover i {
-            color: white;
-        }
-
-        /* TikTok Button */
         .tiktok-btn i {
             color: #010101;
         }
@@ -207,11 +190,6 @@
             color: white;
         }
 
-        .tiktok-btn:hover i {
-            color: white;
-        }
-
-        /* Instagram Button */
         .instagram-btn i {
             color: #e4405f;
         }
@@ -222,11 +200,6 @@
             color: white;
         }
 
-        .instagram-btn:hover i {
-            color: white;
-        }
-
-        /* Footer */
         .footer-note {
             background: #f8fafd;
             padding: 1rem;
@@ -236,7 +209,7 @@
             text-align: center;
         }
 
-        /* Modal Styles */
+        /* Gallery Modal with Protection */
         .gallery-modal {
             display: none;
             position: fixed;
@@ -260,11 +233,13 @@
             align-items: center;
         }
 
-        .gallery-image {
+        /* PROTECTION: Canvas-based image display (prevents right-click save) */
+        .gallery-canvas {
             max-width: 100%;
             max-height: 80vh;
-            object-fit: contain;
             border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            display: block;
         }
 
         .nav-btn {
@@ -315,6 +290,21 @@
             font-size: 0.85rem;
         }
 
+        /* Watermark overlay (optional protection) */
+        .watermark {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            color: rgba(255,255,255,0.3);
+            font-size: 12px;
+            font-family: monospace;
+            pointer-events: none;
+            z-index: 10;
+            background: rgba(0,0,0,0.4);
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
         @media (max-width: 480px) {
             .hub-card { border-radius: 32px; }
             .profile-section { padding: 1.8rem 1.5rem 1.2rem 1.5rem; }
@@ -325,6 +315,7 @@
             .nav-btn { width: 40px; height: 40px; font-size: 1.2rem; }
             .prev-btn { left: 10px; }
             .next-btn { right: 10px; }
+            .watermark { font-size: 8px; bottom: 15px; right: 15px; }
         }
     </style>
 </head>
@@ -346,13 +337,11 @@
         </div>
 
         <div class="links-container">
-            <!-- Check Out My Works Button -->
             <button class="social-button works-btn" id="viewWorksBtn">
                 <i class="fas fa-palette"></i>
                 <span>Check Out My Works</span>
             </button>
 
-            <!-- Facebook -->
             <a href="https://www.facebook.com/mekdim.mulugeta.2025" 
                class="social-button facebook-btn" 
                target="_blank" 
@@ -361,7 +350,6 @@
                 <span>Facebook</span>
             </a>
             
-            <!-- TikTok -->
             <a href="https://www.tiktok.com/@mekdimmulugeta" 
                class="social-button tiktok-btn" 
                target="_blank" 
@@ -370,7 +358,6 @@
                 <span>TikTok</span>
             </a>
 
-            <!-- Instagram -->
             <a href="https://www.instagram.com/mekdimmulugeta" 
                class="social-button instagram-btn" 
                target="_blank" 
@@ -385,75 +372,131 @@
         </div>
     </div>
 
-    <!-- Gallery Modal -->
+    <!-- Gallery Modal with Canvas-based display (prevents right-click save) -->
     <div id="galleryModal" class="gallery-modal">
         <button class="close-modal" id="closeModalBtn"><i class="fas fa-times"></i></button>
         <div class="modal-content">
             <button class="nav-btn prev-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
-            <img id="galleryImage" class="gallery-image" src="" alt="Artwork">
+            <canvas id="galleryCanvas" class="gallery-canvas"></canvas>
             <button class="nav-btn next-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
         </div>
         <div class="image-counter" id="imageCounter">1 / 14</div>
+        <div class="watermark">© Mekdim Mulugeta</div>
     </div>
 
     <script>
         // ========== ARTWORK IMAGES FROM LOCAL FOLDER ==========
-        // All images are in folder named "M" with file names 1.jpg to 14.jpg
-        // Make sure your folder structure is: /M/1.jpg, /M/2.jpg, ... /M/14.jpg
         const artworks = [];
-        
-        // Generate image paths from 1 to 14
         for (let i = 1; i <= 14; i++) {
             artworks.push(`M/${i}.jpg`);
         }
-        
-        // Optional: Add titles for each artwork (you can customize these)
-        const artworkTitles = [
-            "Artwork 1", "Artwork 2", "Artwork 3", "Artwork 4",
-            "Artwork 5", "Artwork 6", "Artwork 7", "Artwork 8",
-            "Artwork 9", "Artwork 10", "Artwork 11", "Artwork 12",
-            "Artwork 13", "Artwork 14"
-        ];
 
         let currentIndex = 0;
         const totalArtworks = artworks.length;
         
+        // Preload images to canvas
+        const loadedImages = [];
+        
         const modal = document.getElementById('galleryModal');
         const viewBtn = document.getElementById('viewWorksBtn');
-        const galleryImage = document.getElementById('galleryImage');
+        const canvas = document.getElementById('galleryCanvas');
+        const ctx = canvas.getContext('2d');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
         const closeModalBtn = document.getElementById('closeModalBtn');
         const imageCounter = document.getElementById('imageCounter');
 
-        function updateImage() {
-            galleryImage.src = artworks[currentIndex];
-            galleryImage.alt = artworkTitles[currentIndex] || `Artwork ${currentIndex + 1}`;
-            imageCounter.textContent = `${currentIndex + 1} / ${totalArtworks}`;
+        // Function to draw image on canvas (makes it non-downloadable via right-click)
+        function drawImageOnCanvas(img) {
+            // Set canvas dimensions to match image
+            canvas.width = img.width;
+            canvas.height = img.height;
+            
+            // Clear canvas and draw image
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0, img.width, img.height);
+            
+            // Optional: Add subtle visible watermark (additional protection)
+            ctx.font = "14px 'Inter', sans-serif";
+            ctx.fillStyle = "rgba(255,255,255,0.3)";
+            ctx.shadowBlur = 0;
+            ctx.fillText("© Mekdim Mulugeta", canvas.width - 120, canvas.height - 20);
+        }
+
+        // Load and display image at given index
+        function loadAndDisplayImage(index) {
+            if (loadedImages[index]) {
+                // Image already loaded, draw it
+                drawImageOnCanvas(loadedImages[index]);
+                imageCounter.textContent = `${index + 1} / ${totalArtworks}`;
+            } else {
+                // Load the image
+                const img = new Image();
+                img.crossOrigin = "Anonymous"; // Attempt to handle CORS if needed
+                img.onload = function() {
+                    loadedImages[index] = img;
+                    drawImageOnCanvas(img);
+                    imageCounter.textContent = `${index + 1} / ${totalArtworks}`;
+                };
+                img.onerror = function() {
+                    console.error(`Failed to load image: ${artworks[index]}`);
+                    // Draw error message on canvas
+                    canvas.width = 600;
+                    canvas.height = 400;
+                    ctx.fillStyle = "#333";
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.fillStyle = "white";
+                    ctx.font = "16px sans-serif";
+                    ctx.textAlign = "center";
+                    ctx.fillText("Image failed to load", canvas.width/2, canvas.height/2);
+                };
+                img.src = artworks[index];
+            }
         }
 
         function nextImage() {
             currentIndex = (currentIndex + 1) % totalArtworks;
-            updateImage();
+            loadAndDisplayImage(currentIndex);
         }
 
         function prevImage() {
             currentIndex = (currentIndex - 1 + totalArtworks) % totalArtworks;
-            updateImage();
+            loadAndDisplayImage(currentIndex);
         }
 
         function openModal() {
             modal.style.display = 'flex';
             currentIndex = 0;
-            updateImage();
+            loadAndDisplayImage(currentIndex);
             document.body.style.overflow = 'hidden';
+            
+            // Disable context menu on canvas (right-click prevention)
+            canvas.addEventListener('contextmenu', preventRightClick);
         }
 
         function closeModal() {
             modal.style.display = 'none';
             document.body.style.overflow = '';
+            canvas.removeEventListener('contextmenu', preventRightClick);
+        }
+        
+        function preventRightClick(e) {
+            e.preventDefault();
+            return false;
         }
 
+        // Disable keyboard shortcuts for saving (F12, Ctrl+S, etc.)
+        function disableSaveShortcuts(e) {
+            // Check for Ctrl+S, Ctrl+Shift+I, F12, Ctrl+U
+            if ((e.ctrlKey && (e.key === 's' || e.key === 'S' || e.key === 'u' || e.key === 'U' || e.key === 'i' || e.key === 'I')) ||
+                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) ||
+                e.key === 'F12') {
+                e.preventDefault();
+                return false;
+            }
+        }
+
+        // Add event listeners
         viewBtn.addEventListener('click', openModal);
         closeModalBtn.addEventListener('click', closeModal);
         nextBtn.addEventListener('click', nextImage);
@@ -471,9 +514,16 @@
             }
         });
         
-        // Optional: Log to console to confirm image paths
-        console.log(`Loaded ${totalArtworks} artwork images from M/ folder`);
-        console.log('First image path:', artworks[0]);
+        // Global protection against save shortcuts
+        document.addEventListener('keydown', disableSaveShortcuts);
+        
+        // Disable right-click on the whole modal (extra protection)
+        modal.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            return false;
+        });
+
+        console.log(`Loaded ${totalArtworks} artwork images from M/ folder (protected from download)`);
     </script>
 </body>
 </html>
