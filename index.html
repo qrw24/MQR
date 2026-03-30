@@ -233,7 +233,6 @@
             align-items: center;
         }
 
-        /* PROTECTION: Canvas-based image display (prevents right-click save) */
         .gallery-canvas {
             max-width: 100%;
             max-height: 80vh;
@@ -290,7 +289,6 @@
             font-size: 0.85rem;
         }
 
-        /* Watermark overlay (optional protection) */
         .watermark {
             position: absolute;
             bottom: 30px;
@@ -372,7 +370,7 @@
         </div>
     </div>
 
-    <!-- Gallery Modal with Canvas-based display (prevents right-click save) -->
+    <!-- Gallery Modal -->
     <div id="galleryModal" class="gallery-modal">
         <button class="close-modal" id="closeModalBtn"><i class="fas fa-times"></i></button>
         <div class="modal-content">
@@ -380,19 +378,22 @@
             <canvas id="galleryCanvas" class="gallery-canvas"></canvas>
             <button class="nav-btn next-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
         </div>
-        <div class="image-counter" id="imageCounter">1 / 14</div>
+        <div class="image-counter" id="imageCounter">1 / 17</div>
         <div class="watermark">© Mekdim Mulugeta</div>
     </div>
 
     <script>
         // ========== ARTWORK IMAGES FROM LOCAL FOLDER ==========
+        // Images from 2.jpg to 18.jpg (total 17 images)
         const artworks = [];
-        for (let i = 1; i <= 14; i++) {
+        for (let i = 2; i <= 18; i++) {
             artworks.push(`M/${i}.jpg`);
         }
+        
+        const totalArtworks = artworks.length;
+        console.log(`Loaded ${totalArtworks} artwork images (2.jpg through 18.jpg)`);
 
         let currentIndex = 0;
-        const totalArtworks = artworks.length;
         
         // Preload images to canvas
         const loadedImages = [];
@@ -416,7 +417,7 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.drawImage(img, 0, 0, img.width, img.height);
             
-            // Optional: Add subtle visible watermark (additional protection)
+            // Add subtle visible watermark (additional protection)
             ctx.font = "14px 'Inter', sans-serif";
             ctx.fillStyle = "rgba(255,255,255,0.3)";
             ctx.shadowBlur = 0;
@@ -426,13 +427,11 @@
         // Load and display image at given index
         function loadAndDisplayImage(index) {
             if (loadedImages[index]) {
-                // Image already loaded, draw it
                 drawImageOnCanvas(loadedImages[index]);
                 imageCounter.textContent = `${index + 1} / ${totalArtworks}`;
             } else {
-                // Load the image
                 const img = new Image();
-                img.crossOrigin = "Anonymous"; // Attempt to handle CORS if needed
+                img.crossOrigin = "Anonymous";
                 img.onload = function() {
                     loadedImages[index] = img;
                     drawImageOnCanvas(img);
@@ -440,7 +439,6 @@
                 };
                 img.onerror = function() {
                     console.error(`Failed to load image: ${artworks[index]}`);
-                    // Draw error message on canvas
                     canvas.width = 600;
                     canvas.height = 400;
                     ctx.fillStyle = "#333";
@@ -448,7 +446,8 @@
                     ctx.fillStyle = "white";
                     ctx.font = "16px sans-serif";
                     ctx.textAlign = "center";
-                    ctx.fillText("Image failed to load", canvas.width/2, canvas.height/2);
+                    ctx.fillText(`Image ${index + 2} failed to load`, canvas.width/2, canvas.height/2);
+                    ctx.fillText(`Make sure M/${index + 2}.jpg exists`, canvas.width/2, canvas.height/2 + 30);
                 };
                 img.src = artworks[index];
             }
@@ -469,8 +468,6 @@
             currentIndex = 0;
             loadAndDisplayImage(currentIndex);
             document.body.style.overflow = 'hidden';
-            
-            // Disable context menu on canvas (right-click prevention)
             canvas.addEventListener('contextmenu', preventRightClick);
         }
 
@@ -485,9 +482,7 @@
             return false;
         }
 
-        // Disable keyboard shortcuts for saving (F12, Ctrl+S, etc.)
         function disableSaveShortcuts(e) {
-            // Check for Ctrl+S, Ctrl+Shift+I, F12, Ctrl+U
             if ((e.ctrlKey && (e.key === 's' || e.key === 'S' || e.key === 'u' || e.key === 'U' || e.key === 'i' || e.key === 'I')) ||
                 (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) ||
                 e.key === 'F12') {
@@ -496,7 +491,6 @@
             }
         }
 
-        // Add event listeners
         viewBtn.addEventListener('click', openModal);
         closeModalBtn.addEventListener('click', closeModal);
         nextBtn.addEventListener('click', nextImage);
@@ -514,16 +508,11 @@
             }
         });
         
-        // Global protection against save shortcuts
         document.addEventListener('keydown', disableSaveShortcuts);
-        
-        // Disable right-click on the whole modal (extra protection)
         modal.addEventListener('contextmenu', (e) => {
             e.preventDefault();
             return false;
         });
-
-        console.log(`Loaded ${totalArtworks} artwork images from M/ folder (protected from download)`);
     </script>
 </body>
 </html>
